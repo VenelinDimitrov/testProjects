@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/commons::head"></head>
+<body>
+<header th:replace="/fragments/commons::nav"></header>
+<main>
+  <form>
+    <div class="form-group">
+      <label>Subject Name</label>
+      <input type="email" class="form-control" placeholder="Subject Name">
+    </div>
+    <div class="form-group">
+      <label>Lead by</label>
+      <input type="password" class="form-control" placeholder="Teacher name">
+    </div>
+    <div class="form-group">
+      <label>Credit amount</label>
+      <input type="password" class="form-control" placeholder="Credit amount">
+    </div>
+    <button type="submit" class="btn btn-primary">Add Subject</button>
+  </form>
+</main>
+
+<footer th:replace="/fragments/commons::footer"></footer>
+
+<script th:replace="/fragments/commons::scripts"></script>
+</body>
+</html>

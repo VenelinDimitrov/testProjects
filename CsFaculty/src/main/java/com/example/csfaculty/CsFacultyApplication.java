@@ -9,5 +9,6 @@ public class CsFacultyApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CsFacultyApplication.class, args);
 	}
-	
+
+
 }

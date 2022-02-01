@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/commons::head"></head>
+<body>
+<header th:replace="/fragments/commons::nav"></header>
+<main>
+    <form>
+        <div class="form-group">
+            <label>First Name</label>
+            <input type="email" class="form-control" placeholder="First Name">
+        </div>
+        <div class="form-group">
+            <label>Last Name</label>
+            <input type="password" class="form-control" placeholder="Last Name">
+        </div>
+        <div class="form-group">
+            <label>Title</label>
+            <input type="password" class="form-control" placeholder="Title">
+        </div>
+        <button type="submit" class="btn btn-primary">Add Teacher</button>
+    </form>
+</main>
+
+<footer th:replace="/fragments/commons::footer"></footer>
+
+<script th:replace="/fragments/commons::scripts"></script>
+</body>
+</html>

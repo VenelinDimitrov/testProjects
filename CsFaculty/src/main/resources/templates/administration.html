@@ -1,37 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/commons::head"></head>
 <body>
+<header th:replace="/fragments/commons::nav"></header>
+<main>
+    <form>
+        <div class="form-group">
+            <label for="studentId">Student ID</label>
+            <input class="form-control" id="studentId"
+                   placeholder="Enter student ID">
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Subjects</label>
+            <select class="form-control" id="exampleFormControlSelect1">
+                <option value="Physics">Physics</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Student's Subjects</button>
+    </form>
+</main>
 
-<div class="admin-rights-modifier visually-hidden">
-  <form th:action="" th:method="GET" th:object="">
-    <div class="form-group">
-      <label for="userEmail">Email address of User</label>
-      <input type="email" th:field="" class="form-control" id="userEmail" aria-describedby="emailHelp"
-             placeholder="Enter email">
-    </div>
-    <br>
-    <div class="form-group">
-      <label for="exampleFormControlSelect1">Subjects</label>
-      <select th:field="" class="form-control" id="exampleFormControlSelect1">
-        <option value="MODERATOR">MODERATOR</option>
-      </select>
-    </div>
-    <br>
-    <div class="form-group">
-      <label for="exampleFormControlSelect1">Select action:</label>
-      <select th:field="" class="form-control" id="action">
-        <option value="Add Role">Add Subject</option>
-        <option value="Remove Role">Remove Subject</option>
-      </select>
-    </div>
-    <br>
-    <button type="submit" class="btn btn-primary">Update Subjects</button>
-  </form>
-</div>
-
+<script th:replace="/fragments/commons::scripts"></script>
 </body>
 </html>
