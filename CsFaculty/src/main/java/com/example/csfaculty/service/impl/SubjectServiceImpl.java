@@ -9,6 +9,8 @@ import com.example.csfaculty.service.TeacherService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 public class SubjectServiceImpl implements SubjectService {
 
@@ -35,5 +37,15 @@ public class SubjectServiceImpl implements SubjectService {
         newSubject.setLeadingTeacher(teacher);
 
         subjectRepository.save(newSubject);
+    }
+
+    @Override
+    public Subject findSubjectByName(String subjectName) {
+        return subjectRepository.findByName(subjectName).orElse(null);
+    }
+
+    @Override
+    public Set<Subject> getAllSubjects() {
+        return subjectRepository.findAllBy();
     }
 }

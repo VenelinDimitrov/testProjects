@@ -4,20 +4,44 @@
 <body>
 <header th:replace="/fragments/commons::nav"></header>
 <main>
-    <form>
+    <form th:action="@{/students/update}" th:method="POST" th:object="${updateStudentSubjectsBindingModel}">
         <div class="form-group">
             <label for="studentId">Student ID</label>
-            <input class="form-control" id="studentId"
+            <input th:field="*{studentId}" th:errorclass="is-invalid" class="form-control" id="studentId"
                    placeholder="Enter student ID">
+            <small class="invalid-feedback bg-danger text-light rounded">
+                Please provide a valid Student ID.
+            </small>
+        </div>
+        <div class="form-group">
+            <label for="studentId">Student First and Last names</label>
+            <input th:field="*{studentNames}" th:errorclass="is-invalid" class="form-control" id="studentNames"
+                   placeholder="First and Last name of the student">
+            <small class="invalid-feedback bg-danger text-light rounded">
+                Please provide First name and Last name of the student.
+            </small>
         </div>
         <br>
         <div class="form-group">
             <label for="exampleFormControlSelect1">Subjects</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-                <option value="Physics">Physics</option>
+            <select th:field="*{subjectName}" th:errorclass="is-invalid" class="form-control" id="exampleFormControlSelect1">
+                <option th:each="s : ${allSubjects}" th:value="${s.name}" th:text="${s.name}">Physics</option>
             </select>
+            <small class="invalid-feedback bg-danger text-light rounded">
+                Please select a Subject.
+            </small>
         </div>
-        <button type="submit" class="btn btn-primary">Add Student's Subjects</button>
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Select action:</label>
+            <select th:field="*{action}" th:errorclass="is-invalid" class="form-control" id="action">
+                <option value="Add Subject">Add Subject</option>
+                <option value="Remove Subject">Remove Subject</option>
+            </select>
+            <small class="invalid-feedback bg-danger text-light rounded">
+                Please select action.
+            </small>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Subject List</button>
     </form>
 </main>
 

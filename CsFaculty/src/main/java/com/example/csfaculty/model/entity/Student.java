@@ -1,10 +1,11 @@
 package com.example.csfaculty.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import java.util.List;
+import org.hibernate.annotations.Fetch;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "students")
@@ -13,9 +14,10 @@ public class Student extends BaseEntity{
     private String firstName;
     private String lastName;
     private String course;
-    private List<Subject> subjectsTaken;
+    private Set<Subject> subjectsTaken;
 
     public Student() {
+        this.subjectsTaken = new LinkedHashSet<>();
     }
 
     @Column(nullable = false)
@@ -45,12 +47,12 @@ public class Student extends BaseEntity{
         this.course = course;
     }
 
-    @ManyToMany
-    public List<Subject> getSubjectsTaken() {
+    @ManyToMany(fetch = FetchType.EAGER)
+    public Set<Subject> getSubjectsTaken() {
         return subjectsTaken;
     }
 
-    public void setSubjectsTaken(List<Subject> subjects) {
+    public void setSubjectsTaken(Set<Subject> subjects) {
         this.subjectsTaken = subjects;
     }
 }
