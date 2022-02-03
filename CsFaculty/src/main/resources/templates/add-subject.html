@@ -4,18 +4,34 @@
 <body>
 <header th:replace="/fragments/commons::nav"></header>
 <main>
-  <form>
+  <form th:action="@{/subjects/add}" th:method="POST" th:object="${addSubjectBindingModel}">
     <div class="form-group">
       <label>Subject Name</label>
-      <input type="email" class="form-control" placeholder="Subject Name">
+      <input th:field="*{subjectName}" th:errorclass="is-invalid" class="form-control" placeholder="Subject Name">
+      <small class="invalid-feedback bg-danger text-light rounded">
+        Subject name cannot be blank.
+      </small>
     </div>
     <div class="form-group">
       <label>Lead by</label>
-      <input type="password" class="form-control" placeholder="Teacher name">
+      <input th:field="*{leadingTeacher}" th:errorclass="is-invalid" class="form-control" placeholder="Teacher name">
+      <small class="invalid-feedback bg-danger text-light rounded">
+        Please provide a valid name of a teacher (First name and Last name).
+      </small>
+    </div>
+    <div class="form-group">
+      <label>Teacher ID</label>
+      <input th:field="*{teacherId}" th:errorclass="is-invalid" class="form-control" placeholder="Teacher ID">
+      <small class="invalid-feedback bg-danger text-light rounded">
+        Please provide a valid teacher ID.
+      </small>
     </div>
     <div class="form-group">
       <label>Credit amount</label>
-      <input type="password" class="form-control" placeholder="Credit amount">
+      <input th:field="*{credits}" th:errorclass="is-invalid" class="form-control" placeholder="Credit amount">
+      <small class="invalid-feedback bg-danger text-light rounded">
+        Please provide a valid number of credits for this subject.
+      </small>
     </div>
     <button type="submit" class="btn btn-primary">Add Subject</button>
   </form>

@@ -4,18 +4,27 @@
 <body>
 <header th:replace="/fragments/commons::nav"></header>
 <main>
-    <form>
+    <form th:action="@{/teachers/add}" th:method="POST" th:object="${addTeacherBindingModel}">
         <div class="form-group">
             <label>First Name</label>
-            <input type="email" class="form-control" placeholder="First Name">
+            <input th:field="*{firstName}" th:errorclass="is-invalid" class="form-control" placeholder="First Name">
+            <small class="invalid-feedback bg-danger text-light rounded">
+                First name cannot be blank.
+            </small>
         </div>
         <div class="form-group">
             <label>Last Name</label>
-            <input type="password" class="form-control" placeholder="Last Name">
+            <input th:field="*{lastName}" th:errorclass="is-invalid" class="form-control" placeholder="Last Name">
+            <small class="invalid-feedback bg-danger text-light rounded">
+                Last name cannot be blank.
+            </small>
         </div>
         <div class="form-group">
             <label>Title</label>
-            <input type="password" class="form-control" placeholder="Title">
+            <input th:field="*{title}" th:errorclass="is-invalid" class="form-control" placeholder="Title">
+            <small class="invalid-feedback bg-danger text-light rounded">
+                Title name cannot be blank.
+            </small>
         </div>
         <button type="submit" class="btn btn-primary">Add Teacher</button>
     </form>
