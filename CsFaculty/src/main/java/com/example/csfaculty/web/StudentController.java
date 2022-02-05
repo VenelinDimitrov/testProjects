@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Set;
 
 @Controller
@@ -82,11 +84,30 @@ public class StudentController {
 
     @GetMapping("/overview")
     public String studentsOverview(Model model){
-        Set<Student> allStudents = studentService.getAllStudents();
+        Set<Student> allStudents = getAllStudents();
 
         model.addAttribute("allStudents", allStudents);
 
         return "students-subjects";
+    }
+
+    @GetMapping("/credits")
+    public String studentCreditsOverview(Model model){
+        Set<Student> allStudents = getAllStudents();
+        Map<Student, Integer> studentsAndCredits = new LinkedHashMap<>();
+
+        allStudents.forEach(student -> {
+            int sumOfCredits = student.getSubjectsTaken().stream().map(Subject::getCredits).mapToInt(Integer::intValue).sum();
+            studentsAndCredits.put(student, sumOfCredits);
+        });
+
+        model.addAttribute("studentsAndCredits", studentsAndCredits);
+
+        return "students-credits";
+    }
+
+    public Set<Student> getAllStudents(){
+        return studentService.getAllStudents();
     }
 
     @ModelAttribute
