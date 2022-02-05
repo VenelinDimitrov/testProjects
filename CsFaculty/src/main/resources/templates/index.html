@@ -13,26 +13,15 @@
             <th scope="col">#</th>
             <th scope="col">First Name</th>
             <th scope="col">Last Name</th>
-            <th scope="col">Led Subjects</th>
+            <th scope="col">Number Of Lead Subjects</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Larry the Bird</td>
-            <td>@twitter</td>
+        <tr th:each="t : ${allTeachers}">
+            <th scope="row" th:text="*{t.id}">1</th>
+            <td th:text="*{t.firstName}">Mark</td>
+            <td th:text="*{t.lastName}">Otto</td>
+            <td th:text="*{t.getLeadSubjects().size()}">@mdo</td>
         </tr>
         </tbody>
     </table>
@@ -48,22 +37,11 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
+        <tr th:each="s : ${allStudents}">
+            <th scope="row" th:text="*{s.id}">2</th>
+            <td th:text="*{s.firstName}">Jacob</td>
+            <td th:text="*{s.lastName}">Thornton</td>
+            <td th:text="*{s.course}">Philosophy</td>
         </tr>
         </tbody>
     </table>

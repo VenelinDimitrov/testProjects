@@ -7,6 +7,8 @@ import com.example.csfaculty.service.TeacherService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 public class TeacherServiceImpl implements TeacherService {
 
@@ -28,5 +30,10 @@ public class TeacherServiceImpl implements TeacherService {
         Teacher newTeacher = modelMapper.map(addTeacherServiceModel, Teacher.class);
 
         teacherRepository.save(newTeacher);
+    }
+
+    @Override
+    public Set<Teacher> getAllTeachers() {
+        return teacherRepository.findAllBy();
     }
 }

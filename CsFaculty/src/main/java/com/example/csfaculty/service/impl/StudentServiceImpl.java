@@ -58,4 +58,9 @@ public class StudentServiceImpl implements StudentService {
 
         studentRepository.save(currentStudent);
     }
+
+    @Override
+    public Set<Student> getAllStudents() {
+        return studentRepository.findAllBy();
+    }
 }

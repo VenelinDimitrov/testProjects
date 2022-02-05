@@ -1,10 +1,8 @@
 package com.example.csfaculty.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "teachers")
@@ -13,7 +11,7 @@ public class Teacher extends BaseEntity{
     private String firstName;
     private String lastName;
     private String title;
-    private List<Subject> ledSubjects;
+    private Set<Subject> leadSubjects;
 
     public Teacher() {
     }
@@ -45,12 +43,12 @@ public class Teacher extends BaseEntity{
         this.title = title;
     }
 
-    @OneToMany(mappedBy = "leadingTeacher")
-    public List<Subject> getLedSubjects() {
-        return ledSubjects;
+    @OneToMany(mappedBy = "leadingTeacher", fetch = FetchType.EAGER)
+    public Set<Subject> getLeadSubjects() {
+        return leadSubjects;
     }
 
-    public void setLedSubjects(List<Subject> ledSubjects) {
-        this.ledSubjects = ledSubjects;
+    public void setLeadSubjects(Set<Subject> ledSubjects) {
+        this.leadSubjects = ledSubjects;
     }
 }
