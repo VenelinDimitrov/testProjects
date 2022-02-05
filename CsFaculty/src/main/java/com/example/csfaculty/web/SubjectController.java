@@ -15,7 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/subjects")
@@ -48,6 +53,16 @@ public class SubjectController {
         subjectService.addSubject(modelMapper.map(addSubjectBindingModel, AddSubjectServiceModel.class));
 
         return "redirect:add";
+    }
+
+    @GetMapping("/top")
+    public String getTopSubjects(Model model){
+
+        List<Subject> topThreeSubjects = new ArrayList<>(subjectService.getTopThreeSubjects());
+
+        model.addAttribute("topThreeSubjects", topThreeSubjects);
+
+        return "top-three-subjects";
     }
 
     @ModelAttribute

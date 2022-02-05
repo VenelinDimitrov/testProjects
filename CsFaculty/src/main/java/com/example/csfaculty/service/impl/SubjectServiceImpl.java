@@ -9,7 +9,9 @@ import com.example.csfaculty.service.TeacherService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class SubjectServiceImpl implements SubjectService {
@@ -52,5 +54,10 @@ public class SubjectServiceImpl implements SubjectService {
     @Override
     public void saveSubject(Subject subject) {
         subjectRepository.save(subject);
+    }
+
+    @Override
+    public List<Subject> getTopThreeSubjects() {
+        return subjectRepository.getSubjectsOrderedBy().stream().limit(3).collect(Collectors.toList());
     }
 }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/commons::head"></head>
+<body>
+<header th:replace="/fragments/commons::nav"></header>
+<main>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Subject Name</th>
+            <th scope="col">Number Of Students</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="s,iter : ${topThreeSubjects}">
+            <th scope="row" th:text="${iter.count}"></th>
+            <td th:text="*{s.name}">Mark</td>
+            <td th:text="*{s.studentsTakingSubject.size()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+
+<footer th:replace="/fragments/commons::footer"></footer>
+
+<script th:replace="/fragments/commons::scripts"></script>
+</body>
+</html>
