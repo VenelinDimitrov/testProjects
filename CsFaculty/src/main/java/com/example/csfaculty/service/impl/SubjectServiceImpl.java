@@ -48,4 +48,9 @@ public class SubjectServiceImpl implements SubjectService {
     public Set<Subject> getAllSubjects() {
         return subjectRepository.findAllBy();
     }
+
+    @Override
+    public void saveSubject(Subject subject) {
+        subjectRepository.save(subject);
+    }
 }

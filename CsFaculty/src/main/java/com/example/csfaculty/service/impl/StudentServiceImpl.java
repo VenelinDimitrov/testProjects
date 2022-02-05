@@ -49,15 +49,21 @@ public class StudentServiceImpl implements StudentService {
 
             if (updateStudentSubjectsServiceModel.getAction().equals("Add Subject")){
                 currentStudent.getSubjectsTaken().add(subject);
+                subject.getStudentsTakingSubject().add(currentStudent);
             } else if (updateStudentSubjectsServiceModel.getAction().equals("Remove Subject")){
                 Set<Subject> newSubjectList = currentStudent.getSubjectsTaken().stream().filter(s -> s.getId() != subject.getId())
                         .collect(Collectors.toSet());
 
-                currentStudent.setSubjectsTaken(newSubjectList);
-            }
-        }
+                Set<Student> newStudentList = subject.getStudentsTakingSubject().stream().filter(s -> s.getId() != currentStudent.getId())
+                        .collect(Collectors.toSet());
 
-        studentRepository.save(currentStudent);
+                currentStudent.setSubjectsTaken(newSubjectList);
+                subject.setStudentsTakingSubject(newStudentList);
+            }
+
+            studentRepository.save(currentStudent);
+            subjectService.saveSubject(subject);
+        }
     }
 
     @Override

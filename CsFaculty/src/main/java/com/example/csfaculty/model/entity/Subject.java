@@ -1,7 +1,7 @@
 package com.example.csfaculty.model.entity;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "subjects")
@@ -10,6 +10,7 @@ public class Subject extends BaseEntity {
     private String name;
     private Teacher leadingTeacher;
     private int credits;
+    private Set<Student> studentsTakingSubject;
 
     public Subject() {
     }
@@ -39,5 +40,14 @@ public class Subject extends BaseEntity {
 
     public void setCredits(int credits) {
         this.credits = credits;
+    }
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    public Set<Student> getStudentsTakingSubject() {
+        return studentsTakingSubject;
+    }
+
+    public void setStudentsTakingSubject(Set<Student> studentsTakingSubject) {
+        this.studentsTakingSubject = studentsTakingSubject;
     }
 }

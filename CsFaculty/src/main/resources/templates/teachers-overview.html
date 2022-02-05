@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/commons::head"></head>
+<body>
+<header th:replace="/fragments/commons::nav"></header>
+<main>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Lead Subjects / Number Of Students Taking The Subject</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="t : ${allTeachers}">
+            <th scope="row" th:text="*{t.id}">1</th>
+            <td th:text="*{t.firstName}">Mark</td>
+            <td th:text="*{t.lastName}">Otto</td>
+            <td>
+                <ul>
+                    <li th:each="s : *{t.getLeadSubjects()}" th:text="|${s.name} / ${s.getStudentsTakingSubject().size()}|"></li>
+                </ul>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+
+<footer th:replace="/fragments/commons::footer"></footer>
+
+<script th:replace="/fragments/commons::scripts"></script>
+</body>
+</html>

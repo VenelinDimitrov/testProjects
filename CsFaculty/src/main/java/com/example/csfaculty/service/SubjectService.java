@@ -11,4 +11,6 @@ public interface SubjectService {
     Subject findSubjectByName(String subjectName);
 
     Set<Subject> getAllSubjects();
+
+    void saveSubject(Subject subject);
 }

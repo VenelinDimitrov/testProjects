@@ -47,7 +47,7 @@ public class Student extends BaseEntity{
         this.course = course;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "studentsTakingSubject", fetch = FetchType.EAGER,targetEntity = Subject.class)
     public Set<Subject> getSubjectsTaken() {
         return subjectsTaken;
     }
