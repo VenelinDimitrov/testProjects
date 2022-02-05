@@ -9,6 +9,7 @@ import com.example.csfaculty.service.StudentService;
 import com.example.csfaculty.service.SubjectService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Set;
 import java.util.stream.Collectors;

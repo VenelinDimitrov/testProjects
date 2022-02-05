@@ -2,6 +2,7 @@ package com.example.csfaculty.web;
 
 import com.example.csfaculty.model.binding.AddStudentBindingModel;
 import com.example.csfaculty.model.binding.UpdateStudentSubjectsBindingModel;
+import com.example.csfaculty.model.entity.Student;
 import com.example.csfaculty.model.entity.Subject;
 import com.example.csfaculty.model.service.AddStudentServiceModel;
 import com.example.csfaculty.model.service.UpdateStudentSubjectsServiceModel;
@@ -79,6 +80,14 @@ public class StudentController {
         return "redirect:administration";
     }
 
+    @GetMapping("/overview")
+    public String studentsOverview(Model model){
+        Set<Student> allStudents = studentService.getAllStudents();
+
+        model.addAttribute("allStudents", allStudents);
+
+        return "students-subjects";
+    }
 
     @ModelAttribute
     public AddStudentBindingModel addStudentBindingModel(){
