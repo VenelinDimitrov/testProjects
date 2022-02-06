@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Controller
@@ -60,6 +62,15 @@ public class TeacherController {
         model.addAttribute("allTeachers", allTeachers);
 
         return "teachers-overview";
+    }
+
+    @GetMapping("/top")
+    public String getTopTeachers(Model model){
+        Map<Teacher, Integer> topThreeTeachers = teacherService.getTopThreeTeachers();
+
+        model.addAttribute("topThreeTeachers", topThreeTeachers);
+
+        return "top-three-teachers";
     }
 
     @ModelAttribute

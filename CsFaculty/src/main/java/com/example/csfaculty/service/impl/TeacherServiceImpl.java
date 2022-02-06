@@ -1,5 +1,6 @@
 package com.example.csfaculty.service.impl;
 
+import com.example.csfaculty.model.entity.Subject;
 import com.example.csfaculty.model.entity.Teacher;
 import com.example.csfaculty.model.service.AddTeacherServiceModel;
 import com.example.csfaculty.repository.TeacherRepository;
@@ -7,7 +8,7 @@ import com.example.csfaculty.service.TeacherService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class TeacherServiceImpl implements TeacherService {
@@ -35,5 +36,24 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public Set<Teacher> getAllTeachers() {
         return teacherRepository.findAllBy();
+    }
+
+    @Override
+    public Map<Teacher, Integer> getTopThreeTeachers() {
+        List<Teacher> orderedListOfTeachers = teacherRepository.getTopThreeTeachers();
+        Map<Teacher, Integer> descendingOrderWithNumberOfStudents = new LinkedHashMap<>();
+
+        for (int i = orderedListOfTeachers.size() - 1; i >= 1; i--) {
+            Teacher currentTeacher = orderedListOfTeachers.get(i);
+            Set<Subject> currentTeachersSubjects = orderedListOfTeachers.get(i).getLeadSubjects();
+            descendingOrderWithNumberOfStudents.put(currentTeacher, 0);
+
+            currentTeachersSubjects.forEach(s -> {
+                int numberOfStudentsSoFar = descendingOrderWithNumberOfStudents.get(currentTeacher);
+                descendingOrderWithNumberOfStudents.put(currentTeacher, numberOfStudentsSoFar + s.getStudentsTakingSubject().size());
+            });
+        }
+
+        return descendingOrderWithNumberOfStudents;
     }
 }
