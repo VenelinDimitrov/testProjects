@@ -17,28 +17,21 @@ import java.util.stream.Collectors;
 public class SubjectServiceImpl implements SubjectService {
 
     private final SubjectRepository subjectRepository;
-    private final TeacherService teacherService;
     private final ModelMapper modelMapper;
 
     public SubjectServiceImpl(SubjectRepository subjectRepository, TeacherService teacherService, ModelMapper modelMapper) {
         this.subjectRepository = subjectRepository;
-        this.teacherService = teacherService;
         this.modelMapper = modelMapper;
     }
 
     @Override
-    public void addSubject(AddSubjectServiceModel addSubjectServiceModel) {
-        String[] teacherNames = addSubjectServiceModel.getLeadingTeacher().split("\\s+");
-        String teacherFirstName = teacherNames[0];
-        String teacherLastName = teacherNames[1];
-        long teacherId = addSubjectServiceModel.getTeacherId();
-
-        Teacher teacher = teacherService.findTeacherByFirstAndLastName(teacherId, teacherFirstName, teacherLastName);
-
+    public void addSubject(Teacher teacher, AddSubjectServiceModel addSubjectServiceModel) {
         Subject newSubject = modelMapper.map(addSubjectServiceModel, Subject.class);
         newSubject.setLeadingTeacher(teacher);
 
-        subjectRepository.save(newSubject);
+        if (!subjectRepository.findByName(newSubject.getName()).isPresent()){
+            subjectRepository.save(newSubject);
+        }
     }
 
     @Override
