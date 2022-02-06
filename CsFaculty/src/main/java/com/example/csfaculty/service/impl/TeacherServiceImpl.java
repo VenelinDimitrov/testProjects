@@ -9,6 +9,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class TeacherServiceImpl implements TeacherService {
@@ -41,9 +43,10 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public Map<Teacher, Integer> getTopThreeTeachers() {
         List<Teacher> orderedListOfTeachers = teacherRepository.getTopThreeTeachers();
+        Collections.reverse(orderedListOfTeachers);
         Map<Teacher, Integer> descendingOrderWithNumberOfStudents = new LinkedHashMap<>();
 
-        for (int i = orderedListOfTeachers.size() - 1; i >= 1; i--) {
+        for (int i = 0; i < 3; i++) {
             Teacher currentTeacher = orderedListOfTeachers.get(i);
             Set<Subject> currentTeachersSubjects = orderedListOfTeachers.get(i).getLeadSubjects();
             descendingOrderWithNumberOfStudents.put(currentTeacher, 0);
