@@ -10,7 +10,9 @@ public interface StudentService {
 
     void addStudent(AddStudentServiceModel addStudentServiceModel);
 
-    void updateStudentSubjects(UpdateStudentSubjectsServiceModel updateStudentSubjectsServiceModel);
+    void updateStudentSubjects(Student currentStudent, UpdateStudentSubjectsServiceModel updateStudentSubjectsServiceModel);
 
     Set<Student> getAllStudents();
+
+    Student getStudent(Long studentId, String firstName, String lastName);
 }

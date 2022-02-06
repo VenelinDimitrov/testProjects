@@ -9,7 +9,6 @@ import com.example.csfaculty.service.StudentService;
 import com.example.csfaculty.service.SubjectService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -35,17 +34,12 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void updateStudentSubjects(UpdateStudentSubjectsServiceModel updateStudentSubjectsServiceModel) {
-        String[] names = updateStudentSubjectsServiceModel.getStudentNames().split("\\s+");
-        String firstName = names[0];
-        String lastName = names[1];
+    public void updateStudentSubjects(Student currentStudent , UpdateStudentSubjectsServiceModel updateStudentSubjectsServiceModel) {
 
-        Student currentStudent = studentRepository.findByIdAndFirstNameAndLastName(updateStudentSubjectsServiceModel.getStudentId(),
-                firstName, lastName).orElse(null);
 
         Subject subject = subjectService.findSubjectByName(updateStudentSubjectsServiceModel.getSubjectName());
 
-        if (currentStudent != null && subject != null){
+        if (subject != null){
 
             if (updateStudentSubjectsServiceModel.getAction().equals("Add Subject")){
                 currentStudent.getSubjectsTaken().add(subject);
@@ -69,5 +63,10 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Set<Student> getAllStudents() {
         return studentRepository.findAllBy();
+    }
+
+    @Override
+    public Student getStudent(Long studentId, String firstName, String lastName) {
+        return studentRepository.findByIdAndFirstNameAndLastName(studentId, firstName,lastName).orElse(null);
     }
 }

@@ -4,6 +4,9 @@
 <body>
 <header th:replace="/fragments/commons::nav"></header>
 <main>
+  <p th:if="${isFound == false}" class="errors alert alert-danger text-center">
+    Invalid Teacher Details.
+  </p>
   <form th:action="@{/subjects/add}" th:method="POST" th:object="${addSubjectBindingModel}">
     <div class="form-group">
       <label>Subject Name</label>

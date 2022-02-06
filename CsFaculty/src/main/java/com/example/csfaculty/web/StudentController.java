@@ -63,6 +63,10 @@ public class StudentController {
         Set<Subject> allSubjects = subjectService.getAllSubjects();
         model.addAttribute("allSubjects", allSubjects);
 
+        if (!model.containsAttribute("isFound")){
+            model.addAttribute("isFound", true);
+        }
+
         return "administration";
     }
 
@@ -77,7 +81,20 @@ public class StudentController {
             return "redirect:administration";
         }
 
-        studentService.updateStudentSubjects(modelMapper.map(updateStudentSubjectsBindingModel, UpdateStudentSubjectsServiceModel.class));
+        String[] names = updateStudentSubjectsBindingModel.getStudentNames().split("\\s+");
+        String firstName = names[0];
+        String lastName = names[1];
+
+        Student currentStudent = studentService.getStudent(updateStudentSubjectsBindingModel.getStudentId(), firstName,lastName);
+
+        if (currentStudent == null) {
+            redirectAttributes.addFlashAttribute("updateStudentSubjectsBindingModel", updateStudentSubjectsBindingModel);
+            redirectAttributes.addFlashAttribute("isFound", false);
+
+            return "redirect:administration";
+        }
+
+        studentService.updateStudentSubjects(currentStudent , modelMapper.map(updateStudentSubjectsBindingModel, UpdateStudentSubjectsServiceModel.class));
 
         return "redirect:administration";
     }

@@ -4,6 +4,9 @@
 <body>
 <header th:replace="/fragments/commons::nav"></header>
 <main>
+    <p th:if="${isFound == false}" class="errors alert alert-danger text-center">
+        Invalid Student Details.
+    </p>
     <form th:action="@{/students/update}" th:method="POST" th:object="${updateStudentSubjectsBindingModel}">
         <div class="form-group">
             <label for="studentId">Student ID</label>
