@@ -15,5 +15,5 @@ public interface TeacherService {
 
     Set<Teacher> getAllTeachers();
 
-    Map<Teacher, Integer> getTopThreeTeachers();
+    List<Teacher> getTopThreeTeachers();
 }

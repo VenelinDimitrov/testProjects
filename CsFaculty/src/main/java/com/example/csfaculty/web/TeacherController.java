@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -66,7 +67,15 @@ public class TeacherController {
 
     @GetMapping("/top")
     public String getTopTeachers(Model model){
-        Map<Teacher, Integer> topThreeTeachers = teacherService.getTopThreeTeachers();
+        List<Teacher> topThreeTeachersList = teacherService.getTopThreeTeachers();
+        Map<Teacher, Integer> topThreeTeachers = new LinkedHashMap<>();
+
+        for (int i = 0; i < topThreeTeachersList.size(); i++) {
+            int studentsTakingTeachersSubjects = topThreeTeachersList.get(i).getLeadSubjects().stream()
+                    .mapToInt(s -> s.getStudentsTakingSubject().size()).sum();
+
+            topThreeTeachers.put(topThreeTeachersList.get(i), studentsTakingTeachersSubjects);
+        }
 
         model.addAttribute("topThreeTeachers", topThreeTeachers);
 

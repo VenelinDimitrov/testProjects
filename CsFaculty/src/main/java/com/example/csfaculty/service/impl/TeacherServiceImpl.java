@@ -41,22 +41,10 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public Map<Teacher, Integer> getTopThreeTeachers() {
+    public List<Teacher> getTopThreeTeachers() {
         List<Teacher> orderedListOfTeachers = teacherRepository.getTopThreeTeachers();
         Collections.reverse(orderedListOfTeachers);
-        Map<Teacher, Integer> descendingOrderWithNumberOfStudents = new LinkedHashMap<>();
 
-        for (int i = 0; i < 3; i++) {
-            Teacher currentTeacher = orderedListOfTeachers.get(i);
-            Set<Subject> currentTeachersSubjects = orderedListOfTeachers.get(i).getLeadSubjects();
-            descendingOrderWithNumberOfStudents.put(currentTeacher, 0);
-
-            currentTeachersSubjects.forEach(s -> {
-                int numberOfStudentsSoFar = descendingOrderWithNumberOfStudents.get(currentTeacher);
-                descendingOrderWithNumberOfStudents.put(currentTeacher, numberOfStudentsSoFar + s.getStudentsTakingSubject().size());
-            });
-        }
-
-        return descendingOrderWithNumberOfStudents;
+        return orderedListOfTeachers.stream().limit(3).collect(Collectors.toList());
     }
 }

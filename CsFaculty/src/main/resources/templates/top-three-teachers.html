@@ -16,8 +16,8 @@
         <tbody>
         <tr th:each="t,iter : ${topThreeTeachers}">
             <th scope="row" th:text="${iter.count}"></th>
-            <td th:text="*{t.getKey().getFirstName()}">Mark</td>
-            <td th:text="*{t.getKey().getLastName()}"></td>
+            <td th:text="*{t.getKey().firstName}">Mark</td>
+            <td th:text="*{t.getKey().lastName}"></td>
             <td th:text="*{t.getValue()}"></td>
         </tr>
         </tbody>
