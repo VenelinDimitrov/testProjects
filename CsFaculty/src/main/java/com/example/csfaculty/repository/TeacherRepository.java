@@ -19,6 +19,6 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
     Set<Teacher> findAllBy();
 
     @Query("SELECT t FROM Teacher t JOIN Subject sub ON t.id = sub.leadingTeacher.id" +
-            " GROUP BY t.id ORDER BY (size(sub.studentsTakingSubject))")
+            " GROUP BY t.id ORDER BY sum(sub.studentsTakingSubject.size)")
     List<Teacher> getTopThreeTeachers();
 }
